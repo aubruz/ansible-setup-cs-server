@@ -1,0 +1,12 @@
+---
+- name: Run user setup
+  import_playbook: setup_users.yml
+
+- name: Run system
+  import_playbook: setup_system.yml
+
+- name: Run CSS setup
+  import_playbook: setup_css.yml
+
+- name: Run CS GO setup
+  import_playbook: setup_csgo.yml

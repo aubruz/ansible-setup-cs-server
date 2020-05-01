@@ -1,0 +1,50 @@
+---
+- name: Setup system
+  hosts: cs_servers
+  gather_facts: False
+  tasks:
+    - name: Install packages
+      yum:
+        name: "{{ system_packages }}"
+        state: latest
+
+    - name: Start firewalld
+      service:
+        name: firewalld
+        state: started
+        enabled: True
+
+    - name: Open ports for CS
+      firewalld:
+        port: "{{ item }}"
+        permanent: True
+        immediate: True
+        state: enabled
+      loop: "{{ ports }}"
+
+    - name: Open ssh port
+      firewalld:
+        service: ssh
+        permanent: True
+        immediate: True
+        state: enabled
+
+    - name: Disable SSH authentication with root
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: "^PermitRootLogin"
+        line: "PermitRootLogin no"
+      notify: Restart sshd
+
+    - name: Disable SSH password authentication
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: "^PasswordAuthentication"
+        line: "PasswordAuthentication no"
+      notify: Restart sshd
+
+  handlers:
+    - name: Restart sshd
+      service:
+        name: sshd
+        state: restarted

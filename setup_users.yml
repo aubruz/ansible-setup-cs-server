@@ -1,0 +1,21 @@
+---
+- name: Setup users and keys
+  hosts: cs_servers
+  gather_facts: False
+  tasks:
+    - name: Add users
+      user:
+        name: "{{ item.name }}"
+        state: present
+        groups: "{{ item.groups }}"
+        system: "{{ item.system }}"
+        shell: "{{ item.shell }}"
+      loop: "{{ users }}"
+
+    - name: Add keys to autohrized_key
+      authorized_key:
+        user: "{{ item.name }}"
+        state: present
+        key: "{{ lookup('file',  item.key) }}"
+      loop: "{{ users }}"
+      when: item.system == False
