@@ -1,0 +1,38 @@
+---
+- name: Download CSS
+  shell:
+    cmd: "sudo -u {{ steam_user }} {{ steamcmd_path }}/steamcmd.sh +login anonymous +force_install_dir {{ css_path }} +app_update {{ css_app_id }} validate +quit"
+    creates: "{{ css_path }}"
+
+# Next two tasks resolve a little bug
+- name: Create sdk32 folder
+  file:
+    path: "/home/{{ steam_user }}/.steam/sdk32"
+    state: directory
+    owner: "{{ steam_user }}"
+    group: "{{ steam_user }}"
+
+- name: Create Symlink for steamclient.so
+  file:
+    src: "{{ steamcmd_path }}/linux32/steamclient.so"
+    path: "/home/{{ steam_user }}/.steam/sdk32/steamclient.so"
+    state: link
+    owner: "{{ steam_user }}"
+    group: "{{ steam_user }}"
+
+- name: Create CSS service
+  template:
+    src: "{{ role_path }}/templates/css.service.j2"
+    dest: /etc/systemd/system/cssd.service
+  notify:
+    - Daemon reload
+    - Restart cssd
+
+- name: Copy CSS server config
+  template:
+    src: "{{ item }}"
+    dest: "{{ css_path }}/cstrike/cfg/{{ item }}"
+    owner: root
+    group: root
+  loop: "{{ css_config_files }}"
+  notify: Restart cssd

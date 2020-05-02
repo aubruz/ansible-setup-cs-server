@@ -1,0 +1,15 @@
+[Unit]
+Description=Counter Strike Source Dedicated Server
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User={{ steam_user }}
+ExecStart={{ css_path }}/srcds_run -console -usercon -game cstrike -secure +maxplayers 10 +map cs_compound +ip {{ ansible_facts['default_ipv4']['address'] }} +port {{ css_port }}
+
+
+[Install]
+WantedBy=multi-user.target
