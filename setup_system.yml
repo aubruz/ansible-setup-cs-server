@@ -3,6 +3,8 @@
   hosts: cs_servers
   gather_facts: False
   vars:
+    - system_packages:
+        - firewalld
     - css_port: 27015
     - csgo_port: 27016
     - ports:
@@ -11,7 +13,7 @@
         - "{{ steamcmd_transfert_port }}/tcp"
         - "{{ csgo_port }}/tcp"
         - "{{ csgo_port }}/udp"
-        
+
   tasks:
     - name: Install packages
       yum:
