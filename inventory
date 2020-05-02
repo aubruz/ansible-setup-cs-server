@@ -1,2 +1,9 @@
 [cs_servers]
 my-server-name.com
+
+[cs_server:vars]
+# If you don't have a key setup to connect to your server
+# you can uncomment the line below and put the ssh password
+# You can comment it again when the superuser key is setup
+#ansible_password=xxxxxxxxxxxx
+ansible_ssh_private_key_file: ~/.ssh/mykey
