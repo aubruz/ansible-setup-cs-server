@@ -1,8 +1,0 @@
-<html>
-<head>
-<title>YOUR TITLE</title>
-</head>
-<body>
-<h1 style="color: #5e9ca0;">Welcome to My Server</h1>
-</body>
-</html>
