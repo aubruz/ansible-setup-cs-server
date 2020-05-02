@@ -1,0 +1,21 @@
+---
+- name: Install SteamCMD dependencies
+  yum:
+    name: "{{ steamcmd_packages }}"
+    state: latest
+
+- name: Create SteamCMD dir
+  file:
+    state: directory
+    group: "{{ steam_user }}"
+    owner: "{{ steam_user }}"
+    path: "{{ steamcmd_path }}"
+
+- name: Download SteamCMD
+  unarchive:
+    dest: "{{ steamcmd_path }}"
+    group: "{{ steam_user }}"
+    owner: "{{ steam_user }}"
+    remote_src: True
+    src: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
+    creates: "{{ steamcmd_path }}/steamcmd.sh"

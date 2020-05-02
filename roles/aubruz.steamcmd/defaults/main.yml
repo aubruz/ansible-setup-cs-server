@@ -1,0 +1,3 @@
+---
+steam_user: steam
+steamcmd_path: "/home/{{ steam_user }}/steamcmd"
