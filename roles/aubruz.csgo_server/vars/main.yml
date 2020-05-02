@@ -1,2 +1,4 @@
 ---
-# vars file for aubruz.csgo_server
+css_config_files:
+  - server.cfg
+csgo_app_id: 740

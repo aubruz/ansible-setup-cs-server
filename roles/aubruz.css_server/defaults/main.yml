@@ -2,8 +2,3 @@
 steam_user: steam
 css_port: 27015
 css_path: "/home/{{ steam_user }}/css"
-css_config_files:
-  - mapcycle.txt
-  - motd_text_default.txt
-  - motd.txt
-  - server.cfg

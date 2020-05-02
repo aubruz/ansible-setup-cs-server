@@ -1,2 +1,7 @@
 ---
 css_app_id: 232330
+css_config_files:
+  - mapcycle.txt
+  - motd_text_default.txt
+  - motd.txt
+  - server.cfg

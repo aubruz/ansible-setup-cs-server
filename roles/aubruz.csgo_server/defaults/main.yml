@@ -1,10 +1,7 @@
 ---
 steam_user: steam
-css_config_files:
-  - server.cfg
 csgo_port: 27015
 csgo_path: "/home/{{ steam_user }}/csgo"
-csgo_app_id: 740
 # CS:GO Token can be retrieved here: https://steamcommunity.com/dev/managegameservers (Game ID 730)
 csgo_token: XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
