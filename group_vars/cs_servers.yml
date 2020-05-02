@@ -8,22 +8,6 @@ ansible_ssh_private_key_file: ~/.ssh/mykey
 steam_user: steam
 super_user: centos
 
-# CS:GO Token can be retrieved here: https://steamcommunity.com/dev/managegameservers (Game ID 730)
-csgo_token: XXXXXXXXXXXXXXXXXXXXXXXXXXX
-# Web API Token can be retrieved here: https://steamcommunity.com/dev/registerkey
-csgo_web_api_token: XXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-
-css_port: 27015
-csgo_port: 27016
-
-steamcmd_path: "/home/{{ steam_user }}/steamcmd"
-css_path: "/home/{{ steam_user }}/css"
-csgo_path: "/home/{{ steam_user }}/csgo"
-steamcmd_transfert_port: 27036
-csgo_app_id: 740
-css_app_id: 232330
-
 users:
   - name: {{ super_user }}
     key: "~/.ssh/mykey.pub" # Don't forget to modify this with your own key
@@ -39,22 +23,3 @@ users:
 
 system_packages:
   - firewalld
-
-cs_packages:
-  - glibc.i686
-  - libstdc++.i686
-  # lib32gcc1 for Ubuntu/Debian
-  # More information on https://developer.valvesoftware.com/wiki/SteamCMD#toc
-
-ports:
-  - "{{ css_port }}/tcp"
-  - "{{ css_port }}/udp"
-  - "{{ steamcmd_transfert_port }}/tcp"
-  - "{{ csgo_port }}/tcp"
-  - "{{ csgo_port }}/udp"
-
-css_config_files:
-  - mapcycle.txt
-  - motd_text_default.txt
-  - motd.txt
-  - server.cfg
