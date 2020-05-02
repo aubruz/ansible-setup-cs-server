@@ -1,64 +1,12 @@
 ---
 - name: Setup Counter Strike Global Offensive server
   hosts: cs_servers
-  tasks:
-    - name: Install SteamCMD dependencies
-      yum:
-        name: "{{ cs_packages }}"
-        state: latest
-
-    - name: Create SteamCMD dir
-      file:
-        state: directory
-        group: "{{ steam_user }}"
-        owner: "{{ steam_user }}"
-        path: "{{ steamcmd_path }}"
-
-    - name: Download SteamCMD
-      unarchive:
-        dest: "{{ steamcmd_path }}"
-        group: "{{ steam_user }}"
-        owner: "{{ steam_user }}"
-        remote_src: True
-        src: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
-        creates: "{{ steamcmd_path }}/steamcmd.sh"
-
-    - name: Download CSS
-      shell:
-        cmd: "sudo -u {{ steam_user }} {{ steamcmd_path }}/steamcmd.sh +login anonymous +force_install_dir {{ csgo_path }} +app_update {{ csgo_app_id }} validate +quit"
-        creates: "{{ csgo_path }}"
-
-    - name: Create CSGO service
-      template:
-        src: files/csgo.service.j2
-        dest: /etc/systemd/system/csgod.service
-      notify:
-        - Daemon reload
-        - Restart csgod
-
-    - name: Copy CSGO server config
-      template:
-        src: "files/csgo_config/{{ item }}"
-        dest: "{{ csgo_path }}/csgo/cfg/{{ item }}"
-        owner: root
-        group: root
-      loop: "{{ css_config_files }}"
-      notify: Restart csgod
-
-    - name: Copy Web API csgo_token
-      copy:
-        content: "{{ csgo_web_api_token }}"
-        dest: "{{ csgo_path }}/csgo/webapi_authkey.txt"
-        owner: "{{ steam_user }}"
-        group: "{{ steam_user }}"
-
-  handlers:
-    - name: Daemon reload
-      systemd:
-        daemon_reload: True
-
-    - name: Restart csgod
-      service:
-        name: csgod
-        state: restarted
-        enabled: True
+  vars:
+    # CS:GO Token can be retrieved here: https://steamcommunity.com/dev/managegameservers (Game ID 730)
+    csgo_token: XXXXXXXXXXXXXXXXXXXXXXXXXXX
+    # Web API Token can be retrieved here: https://steamcommunity.com/dev/registerkey
+    csgo_web_api_token: XXXXXXXXXXXXXXXXXXXXXXXXXXX
+    
+  roles:
+    - aubruz.steamcmd
+    - aubruz.csgo_server

@@ -5,8 +5,17 @@
 - name: Run system
   import_playbook: setup_system.yml
 
-- name: Run CSS setup
-  import_playbook: setup_css.yml
+- name: Install CSS and CS:GO
+  hosts: cs_servers
+  vars:
+    # CS:GO Token can be retrieved here: https://steamcommunity.com/dev/managegameservers (Game ID 730)
+    csgo_token: XXXXXXXXXXXXXXXXXXXXXXXXXXX
+    # Web API Token can be retrieved here: https://steamcommunity.com/dev/registerkey
+    csgo_web_api_token: XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-- name: Run CS GO setup
-  import_playbook: setup_csgo.yml
+  roles:
+    - role: aubruz.steamcmd
+    - role: aubruz.css_server
+      css_port: 27015
+    - role: aubruz.csgo_server
+      csgo_port: 27014
