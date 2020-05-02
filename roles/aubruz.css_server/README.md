@@ -1,22 +1,32 @@
-Role Name
+aubruz.css_server
 =========
 
-A brief description of the role goes here.
+Download, Install and configure a basic Counter Strike Source Server
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Create a steam user. If you want to use another than "steam" you can override the variable `steam_user`
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+defaults/main.yml
+
+steam_user: (default: steam) User that will run the service
+css_port: (default: 27015) Port used for the game
+css_path: (Default: "/home/{{ steam_user }}/css") Path to the game
+
+vars/main.yml:
+
+css_app_id: Counter Strike Source Game ID in Steam
+css_config_files: List of config files needed to setup the server
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+This role is using the role aubruz.steamcmd.
 
 Example Playbook
 ----------------
@@ -25,14 +35,14 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: aubruz.css_server, css_port: 27016 }
 
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[aubruz](https://github.com/aubruz)
