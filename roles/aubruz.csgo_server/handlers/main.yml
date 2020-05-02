@@ -1,0 +1,10 @@
+---
+- name: Daemon reload
+  systemd:
+    daemon_reload: True
+
+- name: Restart csgod
+  service:
+    name: csgod
+    state: restarted
+    enabled: True

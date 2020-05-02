@@ -1,0 +1,29 @@
+---
+- name: Download CS:GO
+  shell:
+    cmd: "sudo -u {{ steam_user }} {{ steamcmd_path }}/steamcmd.sh +login anonymous +force_install_dir {{ csgo_path }} +app_update {{ csgo_app_id }} validate +quit"
+    creates: "{{ csgo_path }}"
+
+- name: Create CS:GO service
+  template:
+    src: "{{ role_path }}/templates/csgo.service.j2"
+    dest: /etc/systemd/system/csgod.service
+  notify:
+    - Daemon reload
+    - Restart csgod
+
+- name: Copy CS:GO server config
+  template:
+    src: "{{ item }}"
+    dest: "{{ csgo_path }}/csgo/cfg/{{ item }}"
+    owner: root
+    group: root
+  loop: "{{ css_config_files }}"
+  notify: Restart csgod
+
+- name: Copy Web API csgo_token
+  copy:
+    content: "{{ csgo_web_api_token }}"
+    dest: "{{ csgo_path }}/csgo/webapi_authkey.txt"
+    owner: "{{ steam_user }}"
+    group: "{{ steam_user }}"

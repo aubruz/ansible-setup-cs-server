@@ -1,0 +1,36 @@
+galaxy_info:
+  author: aubruz
+  description: Install a Counter Strike Global dedicated server
+
+  license: license MIT
+
+  min_ansible_version: 2.9
+
+
+platforms:
+  - name: Fedora
+    versions:
+      - all
+
+  - name: RedHat
+    versions:
+      - 7
+      - 8
+  - name: centOS
+    versions:
+      - 7
+      - 8
+
+
+  galaxy_tags:
+    - csgo
+    - counter
+    - strike
+    - global
+    - offensive
+    - dedicated
+    - server
+
+
+dependencies:
+  - aubruz.steamcmd
