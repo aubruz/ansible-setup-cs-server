@@ -2,6 +2,22 @@
 - name: Setup users and keys
   hosts: cs_servers
   gather_facts: False
+  vars:
+    - steam_user: steam
+    - super_user: centos
+    - users:
+        - name: {{ super_user }}
+          key: "~/.ssh/mykey.pub" # Don't forget to modify this with your own key
+          groups: wheel # sudo for Ubuntu/Debian
+          system: False
+          shell: /bin/bash
+
+        - name: "{{ steam_user }}"
+          key: False
+          groups: []
+          system: True
+          shell: /sbin/nologin
+
   tasks:
     - name: Add users
       user:
