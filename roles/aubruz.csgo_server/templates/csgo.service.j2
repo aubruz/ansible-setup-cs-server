@@ -11,7 +11,7 @@ WorkingDirectory={{ csgo_path }}
 Environment="LD_LIBRARY_PATH=/home/{{ steam_user }}/csgo:/home/{{ steam_user }}/csgo/bin"
 User={{ steam_user }}
 #ExecStartPre={{ steamcmd_path }}/steamcmd.sh +runscript {{ steamcmd_path }}/csgo_update
-ExecStart={{ csgo_path }}/srcds_run -game csgo -console -usercon +game_type 0 +game_mode 1 +port {{ csgo_port }} +ip {{ ansible_facts['default_ipv4']['address'] }} +sv_setsteamaccount "{{ csgo_token }}" +workshop_start_map 126265362 +map cs_mini_militia
+ExecStart={{ csgo_path }}/srcds_run -game csgo -console -usercon +game_type 0 +game_mode 1 +port {{ csgo_port }} +ip {{ ansible_facts['default_ipv4']['address'] }} +sv_setsteamaccount "{{ csgo_token }}" +map de_dust2
 
 [Install]
 WantedBy=multi-user.target
