@@ -6,7 +6,7 @@ Download and install steamcmd
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Have a "steam" user. If you don't, you can override the variable `steam_user`.
 
 Role Variables
 --------------
@@ -34,4 +34,4 @@ MIT
 Author Information
 ------------------
 
-https://github.com/aubruz
+[aubruz](https://github.com/aubruz)
