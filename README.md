@@ -19,11 +19,9 @@ There is five [playbooks](https://docs.ansible.com/ansible/latest/user_guide/pla
   - setup_csgo.yml
   - setup_from_scratch.yml
 
-Because my servers had [CentOS](https://www.centos.org/) installed, the scripts should work easily on CentOS / RedHat / Fedora. A few ajustements need to be made in order to make it work on Ubuntu/Debian.
+The scripts should work easily on CentOS / RedHat / Fedora. A few ajustements need to be made in order to make it work on Ubuntu/Debian.
 
-The group cs_servers is used to reference your server(s). You can replace my-server-name.com with your server name or ip in the [inventory](#) file.
-
-All the variables are found in [group_vars/cs_servers.yml](#). Please read it before launching any script. A few variables need to be set in order to adapt to your setup.
+The group cs_servers is used to reference your server(s). You can replace my-server-name.com with your server name or ip in the [inventory](https://github.com/aubruz/ansible-setup-cs-server/blob/master/inventory) file.
 
 ### setup_users.yml
 
@@ -53,4 +51,4 @@ This script executes all the scripts above in the same order if you want to inst
 
 Once you modified ansible.cfg, group_vars/cs_servers.yml and inventory you can execute the playbooks you want like this: `ansible-playbook playbook.yml`
 
-e.g. `ansible-playbook setup_users.yml`
+e.g.  `ansible-playbook setup_csgo.yml`
